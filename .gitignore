@@ -1,0 +1,9 @@
+# Build directory
+build*/
+
+# The direcotories created by doxygen
+html/
+latex/
+
+# Configuration file for Doxygen
+Doxyfile
