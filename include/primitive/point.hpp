@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include <initializer_list>
 
 namespace pots {
@@ -19,6 +20,15 @@ public:
 	T& y() { return this->y_; }
 	T& z() { return this->z_; }
 };
+
+
+template<typename T> point<T> operator+(const point<T>&, const point<T>&);
+template<typename T> point<T> operator-(const point<T>&, const point<T>&);
+template<typename T> point<T> operator*(T, const point<T>&);
+template<typename T> point<T> operator*(const point<T>&, T);
+
+template<typename T> bool operator==(const point<T>&, const point<T>&);
+template<typename T> bool operator!=(const point<T>&, const point<T>&);
 
 
 using point_f = point<float>;
