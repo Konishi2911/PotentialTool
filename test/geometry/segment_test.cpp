@@ -43,8 +43,9 @@ void t_eq_assert(const pots::point<T>& t1, const pots::point<T>& t2) {
 }
 
 int main() {
-	auto seg1 = pots::geometry::segment( {0, 0, 0}, {10, 0, 0} );	
-	t_eq_assert(seg1.p(0.5), {5, 0, 0});
-	t_eq_assert(seg1.sp(), {0, 0, 0});
-	t_eq_assert(seg1.ep(), {10, 0, 0});
+	auto seg1 = pots::geometry::segment( {5, 0, 0}, {15, 0, 0} );	
+	t_eq_assert(seg1.p(0.5), {10, 0, 0});
+	t_eq_assert(seg1.p(0), {5, 0, 0});
+	t_eq_assert(seg1.sp(), {5, 0, 0});
+	t_eq_assert(seg1.ep(), {15, 0, 0});
 }
