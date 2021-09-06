@@ -10,7 +10,7 @@
 
 namespace pots::geometry {
 
-class polyline: curve {
+class polyline: public curve {
 private:
 	double l_;
 	std::vector<point_d> p_set_;

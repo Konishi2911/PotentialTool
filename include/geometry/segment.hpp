@@ -8,7 +8,7 @@
 
 namespace pots::geometry {
 
-class segment: curve {
+class segment: public curve {
 private:
 	point_d sp_;
 	point_d ep_;
