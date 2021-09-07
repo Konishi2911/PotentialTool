@@ -1,18 +1,27 @@
+/**
+* @file patch.hpp
+* @auther K.Konishi
+* @date Sep.3, 2021
+*/
 #pragma once 
 
 #include "../mesh/face.hpp"
+#include "../primitive/types.hpp"
+#include "element.hpp"
+#include <memory>
 
 namespace pots::be {
 
-class patch: mesh::face {
+template<class grid_t>
+class patch: public mesh::face<grid_t> {
 private:
+	std::unique_ptr<element> element_;
+
+	void init();
+
 protected:
 public:
-	/**
-	* Returns position of the control point of this element.
-	* @return Position of the control point.
-	*/
-	point_d cnt_point() const;
+	patch(const std::vector<id_type>& edges, const grid_t& ref);
 
 	/**
 	* Returns the singularity element specified on this patch.
