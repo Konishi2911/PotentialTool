@@ -5,25 +5,29 @@
 */
 
 #include "discretizer.hpp"
+#include "../primitive/types.hpp"
+#include "../geometry/segment.hpp"
+#include "face.hpp"
+#include "edge.hpp"
 
 namespace pots::mesh {
 
-template<class edge_t, class face_t>
-class linear_discretizer: discretizer<edge_t, face_t> {
+template<class grid_t>
+class linear_discretizer: public discretizer<grid_t> {
 private:
-	std::vector<double> u_dist_();
-	std::vector<double> v_dist_();
+	std::vector<double> u_dist_() const;
+	std::vector<double> v_dist_() const;
 
 protected:
-public:
-	using discretizer::discretizer;
+	std::vector<node> nodes_() const override;
+	std::vector<typename grid_t::edge_type::source> edges_() const override;
+	std::vector<typename grid_t::face_type::source> faces_() const override;
 
-	std::vector<node> nodes() const override;
-	std::vector<edge_t> edges() const override;
-	std::vector<face_t> faces() const override;
+public:
+	linear_discretizer(const domain&, size_t, size_t);
 
 };
 
 }
 
-#include "./impl/linear_discretizer.hpp"
+#include "./impl/linear_discretizer_impl.hpp"

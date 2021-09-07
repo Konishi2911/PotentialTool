@@ -1,16 +1,15 @@
 #pragma once 
-#include "../linear_descritizer.hpp"
 
 namespace pots::mesh {
 
-template<class edge_t, class face_t>
-linear_discretizer<edge_t, face_t>::linear_discretizer(const domain&, dom, size_t N, size_t M):
-	dom_(dom), N_(N), M_(M)
+template<class grid_t>
+linear_discretizer<grid_t>::linear_discretizer(const domain& dom, size_t M, size_t N):
+	discretizer<grid_t>::discretizer(dom, M, N)
 {}
 
 
-template<class edge_t, class face_t>
-std::vector<node> linear_discretizer<edge_t, face_t>::nodes() const {
+template<class grid_t>
+std::vector<node> linear_discretizer<grid_t>::nodes_() const {
 	auto nodes = std::vector<node>();
 	auto curve = this->dom_.edge(0);
 	for (auto v: this->v_dist_()) {
@@ -18,50 +17,49 @@ std::vector<node> linear_discretizer<edge_t, face_t>::nodes() const {
 			nodes.push_back(this->dom_.p(u, v));
 		}
 	}
+	return nodes;
 }
 
-template<class edge_t, class face_t>
-std::vector<edge_t> linear_discretizer<edge_t, face_t>::edges() const {
-	auto edges = std::vector<edge_t>();
-	for (auto i = 0U; i <= N; ++i) {
-		for (auto j = 0U; j < M; ++j) {
+
+template<class grid_t>
+std::vector<typename grid_t::edge_type::source> linear_discretizer<grid_t>::edges_() const {
+	auto edges = std::vector<typename grid_t::edge_type::source>();
+	for (auto i = 0U; i <= this->N_; ++i) {
+		for (auto j = 0U; j < this->M_; ++j) {
 			edges.emplace_back(
-				std::vector<id_type> {
-					static_cast<id_type>(i * (this->M + 1) + j),
-					static_cast<id_tyoe>(i * (this->M + 1) + j + 1)
+				typename grid_t::edge_type::source {
+					static_cast<id_type>(i * (this->M_ + 1) + j),
+					static_cast<id_type>(i * (this->M_ + 1) + j + 1)
 				}
-				*this
 			);
 		}
 	}
-	for (auto i = 0U; i < N; ++i) {
-		for (auto j = 0U; j <= M; ++j) {
+	for (auto i = 0U; i < this->N_; ++i) {
+		for (auto j = 0U; j <= this->M_; ++j) {
 			edges.emplace_back(
-				std::vector<id_type> {
-					static_cast<id_type>(i * (this->M + 1) + j),
-					static_cast<id_tyoe>((i + 1) * (this->M + 1) + j)
+				typename grid_t::edge_type::source {
+					static_cast<id_type>(i * (this->M_ + 1) + j),
+					static_cast<id_type>((i + 1) * (this->M_ + 1) + j)
 				}
-				*this
 			);
 		}
 	}
 	return edges;
 }
 
-template<class edge_t, class face_t>
-std::vector<face_t> linear_discretizer<edge_t, face_t>::faces() const {
-	auto faces = std::vector<face_t>();
-	for (auto i = 0U; i < N; ++i) {
-		auto offset = (N + 1) * M + i;
-		for (auto j = 0U; j < M; ++j) {
+template<class grid_t>
+std::vector<typename grid_t::face_type::source> linear_discretizer<grid_t>::faces_() const {
+	auto faces = std::vector<typename grid_t::face_type::source>();
+	for (auto i = 0U; i < this->N_; ++i) {
+		auto offset = (this->N_ + 1) * this->M_ + i;
+		for (auto j = 0U; j < this->M_; ++j) {
 			faces.emplace_back(
-				std::vector<id_type> {
-					static_cast<id_type>(i * M + j),
-					static_cast<id_type>((i + 1) * M + j),
-					static_cast<id_type>(i * M + j + offset),
-					static_cast<id_type>(i * M + j + offset + 1)
-				},
-				*this
+				typename grid_t::face_type::source {
+					static_cast<id_type>(i * this->M_ + j),
+					static_cast<id_type>((i + 1) * this->M_ + j),
+					static_cast<id_type>(i * this->M_ + j + offset),
+					static_cast<id_type>(i * this->M_ + j + offset + 1)
+				}
 			);
 		}
 	}
@@ -69,5 +67,22 @@ std::vector<face_t> linear_discretizer<edge_t, face_t>::faces() const {
 }
 
 
+template<class grid_t>
+std::vector<double> linear_discretizer<grid_t>::u_dist_() const {
+	auto dist = std::vector<double>();
+	for (auto i = 0; i <= this->M_; ++i) {
+		dist.emplace_back(static_cast<double>(i) / this->M_);
+	}
+	return dist;
+}
+
+template<class grid_t>
+std::vector<double> linear_discretizer<grid_t>::v_dist_() const {
+	auto dist = std::vector<double>();
+	for (auto i = 0; i <= this->N_; ++i) {
+		dist.emplace_back(static_cast<double>(i) / this->N_);
+	}
+	return dist;
+}
 
 }
