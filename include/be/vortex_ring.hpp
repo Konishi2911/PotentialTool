@@ -27,9 +27,7 @@ public:
 	*/
 	vortex_ring(scalar_d gamma, const point_d& p1, const point_d& p2, const point_d& p3, const point_d& p4);
 
-	/**
-	* @sa element
-	*/
+	vector_d influence(const point_d&) const override;
 	vector_d dq(const point_d&) const override;
 };
 

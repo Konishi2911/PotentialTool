@@ -34,9 +34,7 @@ public:
 	*/
 	vortex_segment(scalar_d gamma, const point_d& start, const point_d& end);
 
-	/**
-	* @sa element
-	*/
+	vector_d influence(const point_d&) const override;
 	vector_d dq(const point_d&) const override;
 
 };

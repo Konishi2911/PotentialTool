@@ -12,6 +12,14 @@ vortex_ring::vortex_ring(scalar_d gamma, const point_d& p1, const point_d& p2, c
 {
 }
 
+auto vortex_ring::influence(const point_d& p) const -> vector_d {
+	auto iv = vector_d();
+	for (auto seg: this->v_seg_) {
+		iv += seg.influence(p);
+	}
+	return iv;
+}
+
 auto vortex_ring::dq(const point_d& p) const -> vector_d {
 	auto iv = vector_d();
 	for (auto seg: this->v_seg_) {

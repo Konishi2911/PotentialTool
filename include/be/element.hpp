@@ -16,6 +16,13 @@ private:
 protected:
 public:
 	/**
+	* Calculates and Returns the influence of this singularity element.
+	* @param p A point to calculate the influence of this element.
+	* @return influence of this element from this element.
+	*/
+	virtual vector_d influence(const point_d&) const = 0;
+
+	/**
 	* Calculates and Returns the velocity induced by this element at given point.
 	* @param p A point to calculate the induced velocity.
 	* @return vector_d Induced velocity.
