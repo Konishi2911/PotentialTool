@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "../primitive/types.hpp"
 #include "../primitive/point.hpp"
 #include "type_alias.hpp"
 
@@ -15,6 +16,18 @@ class element {
 private:
 protected:
 public:
+	/**
+	* Get intensity of singularity element.
+	* @return The magnitude of singularity element.
+	*/
+	virtual scalar_d intensity() const = 0;
+
+	/**
+	* Set intensity of this singularity element.
+	* @param m The intensity of singularity element.
+	*/
+	virtual void set_intensity(scalar_d) = 0;
+
 	/**
 	* Calculates and Returns the influence of this singularity element.
 	* @param p A point to calculate the influence of this element.

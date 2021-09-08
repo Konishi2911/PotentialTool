@@ -14,6 +14,13 @@ vortex_segment::vortex_segment(scalar_d gamma, const point_d& start, const point
 {
 }
 
+auto vortex_segment::intensity() const -> scalar_d {
+	return this->gamma_;
+}
+auto vortex_segment::set_intensity(scalar_d m) -> void {
+	this->gamma_ = m;
+}
+
 auto vortex_segment::influence(const point_d& p) const -> vector_d {
 	vector_d r1 = vector_d(
 		p.x() - this->ps_.x(),
