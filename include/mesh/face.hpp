@@ -12,10 +12,10 @@ public:
 	using source = std::vector<id_type>;
 
 private:
+protected:
 	std::vector<id_type> edge_ids_;
 
 	const grid_t& rgrid_;
-protected:
 public:
 	face(const std::vector<id_type>& edges, const grid_t& ref);
 	face(const std::initializer_list<id_type>& edges, const grid_t& ref);
