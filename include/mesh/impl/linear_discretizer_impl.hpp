@@ -56,9 +56,9 @@ std::vector<typename grid_t::face_type::source> linear_discretizer<grid_t>::face
 			faces.emplace_back(
 				typename grid_t::face_type::source {
 					static_cast<id_type>(i * this->M_ + j),
+					static_cast<id_type>(i * this->M_ + j + offset + 1),
 					static_cast<id_type>((i + 1) * this->M_ + j),
-					static_cast<id_type>(i * this->M_ + j + offset),
-					static_cast<id_type>(i * this->M_ + j + offset + 1)
+					static_cast<id_type>(i * this->M_ + j + offset)
 				}
 			);
 		}

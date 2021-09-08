@@ -58,12 +58,12 @@ TEST(DiscretizerTest, EdgeAddressingTest) {
 TEST(DiscretizerTest, FaceAddressingTest) {
 	auto faces = grid.faces();
 	t_eq_assert(faces[0].eids()[0], 0);
-	t_eq_assert(faces[0].eids()[1], 5);
-	t_eq_assert(faces[0].eids()[2], 25);
-	t_eq_assert(faces[0].eids()[3], 26);
+	t_eq_assert(faces[0].eids()[1], 26);
+	t_eq_assert(faces[0].eids()[2], 5);
+	t_eq_assert(faces[0].eids()[3], 25);
 
 	t_eq_assert(faces[19].eids()[0], 19);
-	t_eq_assert(faces[19].eids()[1], 24);
-	t_eq_assert(faces[19].eids()[2], 47);
-	t_eq_assert(faces[19].eids()[3], 48);
+	t_eq_assert(faces[19].eids()[1], 48);
+	t_eq_assert(faces[19].eids()[2], 24);
+	t_eq_assert(faces[19].eids()[3], 47);
 }
