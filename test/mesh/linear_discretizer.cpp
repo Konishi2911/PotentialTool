@@ -6,15 +6,12 @@
 #include "gtest/gtest.h"
 
 class mock_grid;
-namespace pots::mesh {
-	template class edge<mock_grid>;
-	template class face<mock_grid>;
-}
 
 class mock_grid: public pots::mesh::grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>> {
 public:
 	using grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>>::grid;
 };
+
 
 auto dom = pots::mesh::domain(
 	{
