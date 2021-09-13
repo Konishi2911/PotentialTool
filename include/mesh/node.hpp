@@ -10,6 +10,8 @@ private:
 protected:
 public:
 	node(const point_d& p);
+
+	const point_d& p() const;
 };
 
 }
