@@ -12,9 +12,9 @@ namespace pots::mesh {
 template<class grid_t, class edge_t, class face_t>
 class grid {
 private:
-	std::vector<face_t> faces_;
-	std::vector<edge_t> edges_;
 	std::vector<node> nodes_;
+	std::vector<edge_t> edges_;
+	std::vector<face_t> faces_;
 
 protected:
 public:
@@ -22,6 +22,7 @@ public:
 	using face_type = face_t;
 
 	grid(const std::vector<node>&, const std::vector<typename edge_t::source>&, const std::vector<typename face_t::source>&);
+	grid(const grid<grid_t, edge_t, face_t>&) = delete;
 
 	virtual const std::vector<face_t>& faces() const;
 	virtual const std::vector<edge_t>& edges() const;	
