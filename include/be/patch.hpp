@@ -6,7 +6,7 @@
 #pragma once 
 
 #include "../mesh/face.hpp"
-#include "../primitive/types.hpp"
+#include "type_alias.hpp"
 #include "element.hpp"
 #include <memory>
 
@@ -15,7 +15,6 @@ namespace pots::be {
 template<class grid_t>
 class patch: public mesh::face<grid_t> {
 private:
-	std::unique_ptr<element> element_;
 
 	void init();
 
@@ -24,10 +23,25 @@ public:
 	patch(const std::vector<id_type>& edges, const grid_t& ref);
 
 	/**
-	* Returns the singularity element specified on this patch.
-	* @return The singulatity element.
+	* Returns the node points that consist this patch
+	* @return The list of the points.
 	*/
-	element& get_element() const;
+	std::vector<point_d> np() const;
+
+	/**
+	* Calculate and Returns the normal vector of this patch.
+	* @return The normal vector
+	*/
+	vector_d n() const;
+
+	/** 
+	* Calculate and Returns the control point of this patch 
+	* @return The control point
+	*/
+	point_d cp() const;
+
 };
 
 }
+
+#include "impl/patch_impl.hpp"

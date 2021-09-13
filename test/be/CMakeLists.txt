@@ -8,3 +8,15 @@ target_link_libraries(
 )
 
 gtest_discover_tests(vSegTest)
+
+
+add_executable(patchTest ${CMAKE_CURRENT_SOURCE_DIR}/patch.cpp)
+
+target_compile_features(patchTest PRIVATE cxx_std_17)
+target_link_libraries(
+	patchTest PRIVATE 
+	primitive geometry mesh boundary_element
+	GTest::GTest GTest::Main
+)
+
+gtest_discover_tests(patchTest)
