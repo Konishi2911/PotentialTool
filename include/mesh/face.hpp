@@ -13,13 +13,17 @@ public:
 
 private:
 protected:
+	std::vector<id_type> node_ids_;
 	std::vector<id_type> edge_ids_;
 
 	const grid_t& rgrid_;
+
+	std::vector<id_type> calc_nids_() const;
 public:
 	face(const std::vector<id_type>& edges, const grid_t& ref);
 	face(const std::initializer_list<id_type>& edges, const grid_t& ref);
 
+	std::vector<id_type> nids() const;
 	std::vector<id_type> eids() const;
 };
 
