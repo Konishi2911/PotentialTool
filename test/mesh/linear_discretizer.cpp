@@ -7,9 +7,9 @@
 
 class mock_grid;
 
-class mock_grid: public pots::mesh::grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>> {
+class mock_grid: public pots::mesh::grid<mock_grid, pots::mesh::edge, pots::mesh::face> {
 public:
-	using grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>>::grid;
+	using grid<mock_grid, pots::mesh::edge, pots::mesh::face>::grid;
 };
 
 
@@ -21,8 +21,8 @@ auto dom = pots::mesh::domain(
 		std::make_shared<pots::geometry::segment>(pots::point_d{0, 3, 0}, pots::point_d{0, 0, 0})
 	}
 );
-auto discretizer = pots::mesh::linear_discretizer<mock_grid>{dom, 5, 4};
-auto grid = discretizer.create_grid();
+auto discretizer = pots::mesh::linear_discretizer{dom, 5, 4};
+auto grid = discretizer.create_grid<mock_grid>();
 
 
 TEST(DiscretizerTest, NodeTest) {

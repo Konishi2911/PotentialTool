@@ -2,14 +2,12 @@
 
 namespace pots::mesh {
 
-template<class grid_t>
-linear_discretizer<grid_t>::linear_discretizer(const domain& dom, size_t M, size_t N):
-	discretizer<grid_t>::discretizer(dom, M, N)
+linear_discretizer::linear_discretizer(const domain& dom, size_t M, size_t N):
+	discretizer::discretizer(dom, M, N)
 {}
 
 
-template<class grid_t>
-std::vector<node> linear_discretizer<grid_t>::nodes_() const {
+std::vector<node> linear_discretizer::nodes_() const {
 	auto nodes = std::vector<node>();
 	auto curve = this->dom_.edge(0);
 	for (auto v: this->v_dist_()) {
@@ -21,13 +19,12 @@ std::vector<node> linear_discretizer<grid_t>::nodes_() const {
 }
 
 
-template<class grid_t>
-std::vector<typename grid_t::edge_type::source> linear_discretizer<grid_t>::edges_() const {
-	auto edges = std::vector<typename grid_t::edge_type::source>();
+std::vector<std::vector<id_type>> linear_discretizer::edge_sources_() const {
+	auto edges = std::vector<std::vector<id_type>>();
 	for (auto i = 0U; i <= this->N_; ++i) {
 		for (auto j = 0U; j < this->M_; ++j) {
 			edges.emplace_back(
-				typename grid_t::edge_type::source {
+				std::vector<id_type> {
 					static_cast<id_type>(i * (this->M_ + 1) + j),
 					static_cast<id_type>(i * (this->M_ + 1) + j + 1)
 				}
@@ -37,7 +34,7 @@ std::vector<typename grid_t::edge_type::source> linear_discretizer<grid_t>::edge
 	for (auto i = 0U; i < this->N_; ++i) {
 		for (auto j = 0U; j <= this->M_; ++j) {
 			edges.emplace_back(
-				typename grid_t::edge_type::source {
+				std::vector<id_type> {
 					static_cast<id_type>(i * (this->M_ + 1) + j),
 					static_cast<id_type>((i + 1) * (this->M_ + 1) + j)
 				}
@@ -47,14 +44,13 @@ std::vector<typename grid_t::edge_type::source> linear_discretizer<grid_t>::edge
 	return edges;
 }
 
-template<class grid_t>
-std::vector<typename grid_t::face_type::source> linear_discretizer<grid_t>::faces_() const {
-	auto faces = std::vector<typename grid_t::face_type::source>();
+std::vector<std::vector<id_type>> linear_discretizer::face_sources_() const {
+	auto faces = std::vector<std::vector<id_type>>();
 	for (auto i = 0U; i < this->N_; ++i) {
 		auto offset = (this->N_ + 1) * this->M_ + i;
 		for (auto j = 0U; j < this->M_; ++j) {
 			faces.emplace_back(
-				typename grid_t::face_type::source {
+				std::vector<id_type> {
 					static_cast<id_type>(i * this->M_ + j),
 					static_cast<id_type>(i * this->M_ + j + offset + 1),
 					static_cast<id_type>((i + 1) * this->M_ + j),
@@ -67,8 +63,7 @@ std::vector<typename grid_t::face_type::source> linear_discretizer<grid_t>::face
 }
 
 
-template<class grid_t>
-std::vector<double> linear_discretizer<grid_t>::u_dist_() const {
+std::vector<double> linear_discretizer::u_dist_() const {
 	auto dist = std::vector<double>();
 	for (auto i = 0; i <= this->M_; ++i) {
 		dist.emplace_back(static_cast<double>(i) / this->M_);
@@ -76,8 +71,7 @@ std::vector<double> linear_discretizer<grid_t>::u_dist_() const {
 	return dist;
 }
 
-template<class grid_t>
-std::vector<double> linear_discretizer<grid_t>::v_dist_() const {
+std::vector<double> linear_discretizer::v_dist_() const {
 	auto dist = std::vector<double>();
 	for (auto i = 0; i <= this->N_; ++i) {
 		dist.emplace_back(static_cast<double>(i) / this->N_);

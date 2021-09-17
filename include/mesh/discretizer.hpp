@@ -6,11 +6,11 @@
 #pragma once
 #include "domain.hpp"
 #include "node.hpp"
+#include "../primitive/types.hpp"
 #include <vector>
 
 namespace pots::mesh {
 
-template<class grid_t>
 class discretizer {
 private:
 protected:
@@ -27,13 +27,13 @@ protected:
 	* Returns an array of edges.
 	* @return An array of edges.
 	*/
-	virtual std::vector<typename grid_t::edge_type::source> edges_() const = 0;
+	virtual std::vector<std::vector<id_type>> edge_sources_() const = 0;
 
 	/**
 	* Returns an array of faces.
 	* @return An array of faces.
 	*/
-	virtual std::vector<typename grid_t::face_type::source> faces_() const = 0;
+	virtual std::vector<std::vector<id_type>> face_sources_() const = 0;
 
 
 public:
@@ -56,7 +56,8 @@ public:
 	* Create grid object.
 	* @return grid object
 	*/
-	virtual grid_t create_grid() const;
+	template<class grid_t>
+	grid_t create_grid() const;
 };
 
 }

@@ -1,46 +1,45 @@
 namespace pots::be {
 
 template<class grid_t>
-patch<grid_t>::patch(const std::vector<id_type>& edges, const grid_t& ref):
-	mesh::face<grid_t>::face(edges, ref)
+patch::patch(const std::vector<id_type>& eids, const grid_t& ref):
+	mesh::face::face(eids, ref)
 {
-
 }
 
 
 template<class grid_t>
-std::vector<point_d> patch<grid_t>::np() const {
+std::vector<point_d> patch::np(const grid_t& ref) const {
 	return {
-		this->grid_.nodes()[this->nids()[0]].p(), 
-		this->grid_.nodes()[this->nids()[1]].p(), 
-		this->grid_.nodes()[this->nids()[2]].p(), 
-		this->grid_.nodes()[this->nids()[3]].p(), 
+		ref.nodes()[this->nids()[0]].p(), 
+		ref.nodes()[this->nids()[1]].p(), 
+		ref.nodes()[this->nids()[2]].p(), 
+		ref.nodes()[this->nids()[3]].p(), 
 	};
 }
 
 template<class grid_t>
-point_d patch<grid_t>::cp() const {
+point_d patch::cp(const grid_t& ref) const {
 	auto nids = this->nids();
 	return (
-		this->rgrid_.nodes()[nids[0]].p() +
-		this->rgrid_.nodes()[nids[1]].p() +
-		this->rgrid_.nodes()[nids[2]].p() +
-		this->rgrid_.nodes()[nids[3]].p()
+		ref.nodes()[nids[0]].p() +
+		ref.nodes()[nids[1]].p() +
+		ref.nodes()[nids[2]].p() +
+		ref.nodes()[nids[3]].p()
 	) * 0.25;
 }
 
 template<class grid_t>
-vector_d patch<grid_t>::n() const {
+vector_d patch::n(const grid_t& ref) const {
 	auto nids = this->nids();
 	auto r1 = vector_d { 
-		this->rgrid_.nodes()[nids[0]].p().x() - this->rgrid_.nodes()[nids[2]].p().x(),
-		this->rgrid_.nodes()[nids[0]].p().y() - this->rgrid_.nodes()[nids[2]].p().y(),
-		this->rgrid_.nodes()[nids[0]].p().z() - this->rgrid_.nodes()[nids[2]].p().z()
+		ref.nodes()[nids[0]].p().x() - ref.nodes()[nids[2]].p().x(),
+		ref.nodes()[nids[0]].p().y() - ref.nodes()[nids[2]].p().y(),
+		ref.nodes()[nids[0]].p().z() - ref.nodes()[nids[2]].p().z()
 	};
 	auto r2 = vector_d { 
-		this->rgrid_.nodes()[nids[1]].p().x() - this->rgrid_.nodes()[nids[3]].p().x(),
-		this->rgrid_.nodes()[nids[1]].p().y() - this->rgrid_.nodes()[nids[3]].p().y(),
-		this->rgrid_.nodes()[nids[1]].p().z() - this->rgrid_.nodes()[nids[3]].p().z()
+		ref.nodes()[nids[1]].p().x() - ref.nodes()[nids[3]].p().x(),
+		ref.nodes()[nids[1]].p().y() - ref.nodes()[nids[3]].p().y(),
+		ref.nodes()[nids[1]].p().z() - ref.nodes()[nids[3]].p().z()
 	};
 	auto c = r1.cross(r2);
 	return c / c.norm();

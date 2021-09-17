@@ -15,33 +15,36 @@ namespace pots::be {
 /**
 * @brief Represents a patch face that consists of four edges.
 */
-template<class grid_t>
-class patch: public mesh::face<grid_t> {
+class patch: public mesh::face {
 private:
 
 	void init();
 
 protected:
 public:
-	patch(const std::vector<id_type>& edges, const grid_t& ref);
+	template<class grid_t>
+	patch(const std::vector<id_type>& eids, const grid_t& ref);
 
 	/**
 	* Returns the node points that consist this patch
 	* @return The list of the points.
 	*/
-	std::vector<point_d> np() const;
+	template<class grid_t>
+	std::vector<point_d> np(const grid_t&) const;
 
 	/**
 	* Calculate and Returns the normal vector of this patch.
 	* @return The normal vector
 	*/
-	vector_d n() const;
+	template<class grid_t>
+	vector_d n(const grid_t&) const;
 
 	/** 
 	* Calculate and Returns the control point of this patch 
 	* @return The control point
 	*/
-	point_d cp() const;
+	template<class grid_t>
+	point_d cp(const grid_t&) const;
 
 };
 
