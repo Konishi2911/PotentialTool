@@ -12,6 +12,9 @@
 
 namespace pots::be {
 
+/**
+* @brief Represents a patch face that consists of four edges.
+*/
 template<class grid_t>
 class patch: public mesh::face<grid_t> {
 private:
