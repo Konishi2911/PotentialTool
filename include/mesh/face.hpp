@@ -6,6 +6,7 @@
 
 namespace pots::mesh {
 
+template<class grid_t>
 class face {
 public:
 
@@ -14,10 +15,10 @@ protected:
 	std::vector<id_type> node_ids_;
 	std::vector<id_type> edge_ids_;
 
-	template<class grid_t>
+	const grid_t& ref_;
+
 	static std::vector<id_type> calc_nids_(const std::vector<id_type>&, const grid_t&);
 public:
-	template<class grid_t>
 	face(const std::vector<id_type>& eids, const grid_t& nids);
 
 	const std::vector<id_type>& nids() const;

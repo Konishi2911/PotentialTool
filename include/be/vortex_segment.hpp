@@ -9,6 +9,7 @@
 #include "type_alias.hpp"
 #include <Eigen/Dense>
 #include <cmath>
+#include <memory>
 
 namespace pots::be {
 
@@ -20,8 +21,8 @@ private:
 	constexpr static scalar_d k_pi = 1 / (4 * M_PI);
 
 	scalar_d gamma_;	
-	point_d ps_;
-	point_d pe_;
+	const point_d& ps_;
+	const point_d& pe_;
 
 	vector_d r0_;
 

@@ -1,16 +1,15 @@
 namespace pots::mesh {
 
-edge::edge(const std::vector<id_type>& nodes)
-	: node_ids_(nodes) 
+template<class grid_t>
+edge<grid_t>::edge(const std::vector<id_type>& nodes, const grid_t& ref) : 
+	node_ids_(nodes),
+	ref_(ref)
 {
 }
 
-edge::edge(const std::initializer_list<id_type>& init)
-	: node_ids_(init.begin(), init.end()) 
-{
-}
 
-const std::vector<id_type>& edge::nids() const {
+template<class grid_t>
+const std::vector<id_type>& edge<grid_t>::nids() const {
 	return this->node_ids_;
 }
 

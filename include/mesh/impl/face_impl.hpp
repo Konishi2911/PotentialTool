@@ -1,23 +1,27 @@
 namespace pots::mesh {
 
 template<class grid_t>
-face::face(const std::vector<id_type>& eids, const grid_t& grid): 
-	node_ids_(this->calc_nids_(eids, grid)), edge_ids_(eids)
+face<grid_t>::face(const std::vector<id_type>& eids, const grid_t& grid): 
+	node_ids_(this->calc_nids_(eids, grid)), 
+	edge_ids_(eids),
+	ref_(grid)
 {
 }
 
 
-const std::vector<id_type>& face::nids() const {
+template<class grid_t>
+const std::vector<id_type>& face<grid_t>::nids() const {
 	return this->node_ids_;
 }
 
-const std::vector<id_type>& face::eids() const {
+template<class grid_t>
+const std::vector<id_type>& face<grid_t>::eids() const {
 	return this->edge_ids_;
 }
 
 
 template<class grid_t>
-std::vector<id_type> face::calc_nids_(const std::vector<id_type>& eids, const grid_t& ref) {
+std::vector<id_type> face<grid_t>::calc_nids_(const std::vector<id_type>& eids, const grid_t& ref) {
 	auto nids = std::vector<id_type>();
 	nids.emplace_back(ref.edges()[eids[0]].nids()[0]);
 	for (auto i = 1U; i < eids.size(); ++i) {

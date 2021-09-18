@@ -11,7 +11,7 @@ grid<grid_t, edge_t, face_t>::grid(
 	nodes_(nodes)
 {
 	for (auto es: edge_source) {
-		this->edges_.emplace_back(es);
+		this->edges_.emplace_back(es, static_cast<const grid_t&>(*this));
 	}
 	for (auto fs: face_source) {
 		this->faces_.emplace_back(fs, static_cast<const grid_t&>(*this));

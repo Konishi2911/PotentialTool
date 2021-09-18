@@ -7,9 +7,9 @@
 
 class mock_grid;
 
-class mock_grid: public pots::mesh::grid<mock_grid, pots::mesh::edge, pots::mesh::face> {
+class mock_grid: public pots::mesh::grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>> {
 public:
-	using grid<mock_grid, pots::mesh::edge, pots::mesh::face>::grid;
+	using grid<mock_grid, pots::mesh::edge<mock_grid>, pots::mesh::face<mock_grid>>::grid;
 };
 
 

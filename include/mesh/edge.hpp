@@ -6,16 +6,18 @@
 
 namespace pots::mesh {
 
+template<class grid_t>
 class edge {
 public:
 
 private:
 protected:
 	std::vector<id_type> node_ids_;
+
+	const grid_t& ref_;
 	
 public:
-	edge(const std::vector<id_type>&);	
-	edge(const std::initializer_list<id_type>&);	
+	edge(const std::vector<id_type>&, const grid_t&);	
 
 	const std::vector<id_type>& nids() const;
 };
