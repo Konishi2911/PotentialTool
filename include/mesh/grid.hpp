@@ -21,7 +21,7 @@ public:
 	using edge_type = edge_t;
 	using face_type = face_t;
 
-	grid(const std::vector<node>&, const std::vector<typename edge_t::source>&, const std::vector<typename face_t::source>&);
+	grid(const std::vector<node>&, const std::vector<std::vector<id_type>>&, const std::vector<std::vector<id_type>>&);
 	grid(const grid<grid_t, edge_t, face_t>&) = delete;
 
 	virtual const std::vector<face_t>& faces() const;

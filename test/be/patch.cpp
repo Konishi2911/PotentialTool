@@ -29,8 +29,8 @@ auto dom = pots::mesh::domain(
 		std::make_shared<pots::geometry::segment>(pots::point_d{0, 3, 0}, pots::point_d{0, 0, 0})
 	}
 );
-auto discretizer = pots::mesh::linear_discretizer<mock_grid>{dom, 1, 1};
-auto grid = discretizer.create_grid();
+auto discretizer = pots::mesh::linear_discretizer{dom, 1, 1};
+auto grid = discretizer.create_grid<mock_grid>();
 
 auto patches = grid.faces();
 

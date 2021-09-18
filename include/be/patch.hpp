@@ -23,7 +23,7 @@ private:
 
 protected:
 public:
-	patch(const std::vector<id_type>& edges, const grid_t& ref);
+	patch(const std::vector<id_type>& eids, const grid_t& ref);
 
 	/**
 	* Returns the node points that consist this patch

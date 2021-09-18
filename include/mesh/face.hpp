@@ -9,22 +9,20 @@ namespace pots::mesh {
 template<class grid_t>
 class face {
 public:
-	using source = std::vector<id_type>;
 
 private:
 protected:
 	std::vector<id_type> node_ids_;
 	std::vector<id_type> edge_ids_;
 
-	const grid_t& rgrid_;
+	const grid_t& ref_;
 
-	std::vector<id_type> calc_nids_() const;
+	static std::vector<id_type> calc_nids_(const std::vector<id_type>&, const grid_t&);
 public:
-	face(const std::vector<id_type>& edges, const grid_t& ref);
-	face(const std::initializer_list<id_type>& edges, const grid_t& ref);
+	face(const std::vector<id_type>& eids, const grid_t& nids);
 
-	std::vector<id_type> nids() const;
-	std::vector<id_type> eids() const;
+	const std::vector<id_type>& nids() const;
+	const std::vector<id_type>& eids() const;
 };
 
 }

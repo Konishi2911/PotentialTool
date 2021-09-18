@@ -7,3 +7,6 @@ latex/
 
 # Configuration file for Doxygen
 Doxyfile
+
+# Swap files
+*\.swp

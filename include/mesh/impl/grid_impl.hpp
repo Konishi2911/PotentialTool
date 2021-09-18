@@ -3,8 +3,8 @@ namespace pots::mesh {
 template<class grid_t, class edge_t, class face_t>
 grid<grid_t, edge_t, face_t>::grid(
 	const std::vector<node>& nodes, 
-	const std::vector<typename edge_t::source>& edge_source,
-	const std::vector<typename face_t::source>& face_source
+	const std::vector<std::vector<id_type>>& edge_source,
+	const std::vector<std::vector<id_type>>& face_source
 ) :
 	faces_(),
 	edges_(),
