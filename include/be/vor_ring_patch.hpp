@@ -7,7 +7,7 @@
 namespace pots::be {
 
 template<class grid_t>
-class vor_ring_patch: public patch, public element {
+class vor_ring_patch: public patch<grid_t>, public element {
 private:
 	scalar_d mag_;	
 
@@ -27,4 +27,4 @@ public:
 
 }
 
-#include "impl/vor_ring_patch_imol.hpp"
+#include "impl/vor_ring_patch_impl.hpp"
