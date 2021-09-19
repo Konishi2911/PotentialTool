@@ -3,6 +3,8 @@
 * @auther K.Konishi
 * @date Sep.3, 2021
 */
+#pragma once
+
 #include "../primitive/point.hpp"
 #include "../geometry/curve.hpp"
 #include <initializer_list>
