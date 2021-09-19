@@ -20,3 +20,15 @@ target_link_libraries(
 )
 
 gtest_discover_tests(patchTest)
+
+
+add_executable(vrPatchTest ${CMAKE_CURRENT_SOURCE_DIR}/vor_ring_patch.cpp)
+
+target_compile_features(vrPatchTest PRIVATE cxx_std_17)
+target_link_libraries(
+	vrPatchTest PRIVATE 
+	primitive geometry mesh boundary_element
+	GTest::GTest GTest::Main
+)
+
+gtest_discover_tests(vrPatchTest)
